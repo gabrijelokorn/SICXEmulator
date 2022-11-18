@@ -1,20 +1,27 @@
 #include "Machine.h"
-#include "Registry.h"
-#include "Memory.h"
 
 #include <iostream>
 
+#include "Device.h"
+#include "InputDevice.h"
+#include "Memory.h"
+#include "Registry.h"
+
+#define MAX_DEVICES 256
+
 using namespace std;
 
+void Machine::setDevice (int num, Device device) {
+    
+}
+
 Machine::Machine() {
-  cout << "Machine works!\n";
-  Registry reg;
-  Memory mem;
+    cout << "Machine works!\n";
+    Registry reg;
+    Memory mem;
+    Device devices[MAX_DEVICES];
 
-  mem.setByte(1, -18);
-  mem.setByte(2, 255);
 
-  mem.setWord(4, -80000);
-  cout << mem.getWord(4);
-  mem.print(5, 42);
+    setDevice(0, InputDevice(std::cin));
+
 }

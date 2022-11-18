@@ -1,6 +1,5 @@
-#include <iostream>
-
 #include "Registry.h"
+#include <iostream>
 #include "Machine.h"
 
 using namespace std;
@@ -100,6 +99,4 @@ void Registry::setReg(int reg, int val) {
     }
 }
 
-Registry::Registry() {
-    cout << "Registry works!\n";
-}
+Registry::Registry() { cout << "Registry works!\n"; }

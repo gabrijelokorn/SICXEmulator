@@ -1,24 +1,23 @@
 #include "Memory.h"
-
 #include <iostream>
 
 using namespace std;
 
-void Memory::outOfMemoryError () {
+void Memory::outOfMemoryError() {
     cout << "Address not in memory range [0, 1048575]!\n";
 }
 
-void Memory::invalidByteValueMemoryError () {
+void Memory::invalidByteValueMemoryError() {
     cout << "Value not int range of type byte [-128, 255]!\n";
 }
 
-void Memory::invalidWordValueMemoryError () {
+void Memory::invalidWordValueMemoryError() {
     cout << "Value not int range of type word [-8388608, 8388607]!\n";
 }
 
-int Memory::getByte(int addr) { 
-    if(addr >= 0 && addr <= MAX_ADDRESS) {
-        return MEMORY[addr]; 
+int Memory::getByte(int addr) {
+    if (addr >= 0 && addr <= MAX_ADDRESS) {
+        return MEMORY[addr];
     } else {
         outOfMemoryError();
     }
@@ -26,7 +25,7 @@ int Memory::getByte(int addr) {
 }
 
 void Memory::setByte(int addr, int val) {
-    if(addr < 0 || addr > MAX_ADDRESS) {
+    if (addr < 0 || addr > MAX_ADDRESS) {
         cout << "bla: " << MAX_ADDRESS;
         outOfMemoryError();
     }
@@ -38,13 +37,14 @@ void Memory::setByte(int addr, int val) {
     }
 }
 
-int Memory::getWord(int addr) { 
-    if(addr >= 0 && addr <= MAX_ADDRESS) {
+int Memory::getWord(int addr) {
+    if (addr >= 0 && addr <= MAX_ADDRESS) {
         int firstNum = getByte(addr);
         if (firstNum >= 128) {
             firstNum = -128 + (firstNum - 128);
         }
-        return (firstNum << 16) + (getByte(addr + 1) << 8) + (getByte(addr + 2)); 
+        return (firstNum << 16) + (getByte(addr + 1) << 8) +
+               (getByte(addr + 2));
     } else {
         outOfMemoryError();
     }
@@ -52,7 +52,7 @@ int Memory::getWord(int addr) {
 }
 
 void Memory::setWord(int addr, int val) {
-    if(addr < 0 || addr > MAX_ADDRESS) {
+    if (addr < 0 || addr > MAX_ADDRESS) {
         outOfMemoryError();
     }
 
