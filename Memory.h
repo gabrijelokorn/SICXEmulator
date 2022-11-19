@@ -24,7 +24,7 @@ class Memory {
     void setWord(int addr, int val);
 
     void print(int from, int to);
-    Memory();
+    explicit Memory();
 };
 
 #endif

@@ -4,9 +4,13 @@
 #include "Device.h"
 #include <iostream>
 
+using namespace std;
+
 class InputDevice : public Device {
+   private:
+    istream *input;
    public:
-    InputDevice(istream&);
+    InputDevice(istream& a);
 };
 
 #endif
