@@ -22,8 +22,8 @@ void Registry::setS(int val) { this->S = val; }
 int Registry::getT() { return this->T; }
 void Registry::setT(int val) { this->T = val; }
 
-int Registry::getF() { return this->F; }
-void Registry::setF(int val) { this->F = val; }
+// int Registry::getF() { return this->F; }
+// void Registry::setF(int val) { this->F = val; }
 
 int Registry::getPC() { return this->PC; }
 void Registry::setPC(int val) { this->PC = val; }
@@ -51,12 +51,12 @@ int Registry::getReg(int reg) {
         case (5): {
             return getT();
         }
-        case (6): {
-            return getF();
-        }
-        case (7): {
-            return 0;
-        }
+        // case (6): {
+        //     return getF();
+        // }
+        // case (7): {
+        //     return 0;
+        // }
         case (8): {
             return getPC();
         }
@@ -87,9 +87,9 @@ void Registry::setReg(int reg, int val) {
         case (5): {
             setT(val);
         }
-        case (6): {
-            setF(val);
-        }
+        // case (6): {
+        //     setF(val);
+        // }
         case (8): {
             setPC(val);
         }

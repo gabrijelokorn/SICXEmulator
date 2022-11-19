@@ -20,8 +20,12 @@ Machine::Machine() {
     Registry reg;
     Memory mem;
     Device devices[MAX_DEVICES];
+    
+    mem.setWord(32, 505050);
+    mem.setWord(17, -505050);
+    mem.print(4, 50);
 
+    InputDevice id(std::cin);
 
-    setDevice(0, InputDevice(std::cin));
-
+    // devices[0] = InputDevice(id);
 }

@@ -5,10 +5,8 @@
 #include <iostream>
 
 class InputDevice : public Device {
-   private:
-    std::istream input;
    public:
-    InputDevice(std::istream&);
+    InputDevice(istream&);
 };
 
 #endif

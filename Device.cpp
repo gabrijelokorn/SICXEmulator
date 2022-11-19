@@ -17,5 +17,5 @@ bool Device::test() {
 
 
 Device::Device() { 
-    cout << "Device works!\n";
+    // cout << "Device works!\n";
 }
