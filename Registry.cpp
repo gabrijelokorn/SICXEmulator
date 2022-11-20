@@ -1,5 +1,6 @@
-#include "Registry.h"
 #include <iostream>
+
+#include "Registry.h"
 #include "Machine.h"
 
 using namespace std;

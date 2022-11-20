@@ -1,7 +1,11 @@
-#include "Machine.h"
-
 #ifndef SICXE_REGISTRY_H
 #define SICXE_REGISTRY_H
+
+#include <iostream>
+
+#include "Machine.h"
+
+using namespace std;
 
 class Registry {
    private:
@@ -19,34 +23,34 @@ class Registry {
     Registry();
 
     int getA();
-    void setA(int val);
+    void setA(int);
 
     int getX();
-    void setX(int val);
+    void setX(int);
 
     int getL();
-    void setL(int val);
+    void setL(int);
 
     int getB();
-    void setB(int val);
+    void setB(int);
 
     int getS();
-    void setS(int val);
+    void setS(int);
 
     int getT();
-    void setT(int val);
+    void setT(int);
 
     int getF();
-    void setF(int val);
+    void setF(int);
 
     int getPC();
-    void setPC(int val);
+    void setPC(int);
 
     int getSW();
-    void setSW(int val);
+    void setSW(int);
 
-    int getReg(int reg);
-    void setReg(int reg, int val);
+    int getReg(int);
+    void setReg(int, int);
 };
 
 #endif

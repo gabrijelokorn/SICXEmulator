@@ -1,7 +1,9 @@
 #ifndef SICXE_MEMORY_H
 #define SICXE_MEMORY_H
 
+#include <iostream>
 #include <cstdint>
+
 #define MAX_ADDRESS 1048575
 #define MAX_WORD_VALUE 8388607
 #define MIN_WORD_VALUE -8388608

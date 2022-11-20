@@ -1,16 +1,17 @@
 #ifndef SICXE_INPUTDEVICE_H
 #define SICXE_INPUTDEVICE_H
 
-#include "Device.h"
 #include <iostream>
+
+#include "Device.h"
 
 using namespace std;
 
 class InputDevice : public Device {
    private:
-    istream *input;
+    istream* input;
    public:
-    InputDevice(istream& a);
+    InputDevice(istream& input);
 };
 
 #endif

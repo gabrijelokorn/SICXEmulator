@@ -1,7 +1,8 @@
-#include "Device.h"
 #include <iostream>
 #include <cstdint>
+
 #include "InputDevice.h"
+#include "Device.h"
 using namespace std;
 
 uint8_t Device::read() {
