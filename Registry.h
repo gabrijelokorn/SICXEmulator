@@ -23,34 +23,34 @@ class Registry {
     Registry();
 
     int getA();
-    void setA(int);
+    void setA(int val);
 
     int getX();
-    void setX(int);
+    void setX(int val);
 
     int getL();
-    void setL(int);
+    void setL(int val);
 
     int getB();
-    void setB(int);
+    void setB(int val);
 
     int getS();
-    void setS(int);
+    void setS(int val);
 
     int getT();
-    void setT(int);
+    void setT(int val);
 
     int getF();
-    void setF(int);
+    void setF(int val);
 
     int getPC();
-    void setPC(int);
+    void setPC(int val);
 
     int getSW();
-    void setSW(int);
+    void setSW(int val);
 
-    int getReg(int);
-    void setReg(int, int);
+    int getReg(int registerIndex);
+    void setReg(int registerIndex, int val);
 };
 
 #endif

@@ -9,10 +9,9 @@ using namespace std;
 class Device {
    private:
    public:
-    uint8_t read();
-    void write();
+    virtual uint8_t read();
+    void write(uint8_t val);
     bool test();
-    Device();
 };
 
 #endif

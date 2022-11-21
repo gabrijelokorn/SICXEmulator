@@ -1,30 +1,29 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <string>
 #include <fstream>
 
 #include "FileDevice.h"
 
 using namespace std;
 
-void FileDevice::fileWrite(fstream fileName) {
-
+void FileDevice::write(uint8_t val) {
+    cout << "test";
 }
 
-uint8_t FileDevice::fileRead (fstream fileName) {
-
+uint8_t FileDevice::read () {
+    return 0;
 }
 
-bool FileDevice::fileTest (fstream fileName) {
-
+bool FileDevice::test () {
+    return true;
 }
 
 FileDevice::FileDevice(int num) {
 
-    stringstream fileName;
-    fileName << std::hex << num;
-
-    fstream fileName;
-
+    stringstream fileNameHex;
+    fileNameHex << std::hex << num;
+    this->fileName = fileNameHex.str() + ".dev";
 }
 

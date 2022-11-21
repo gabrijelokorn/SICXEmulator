@@ -13,10 +13,10 @@ using namespace std;
 
 class SicXeIO {
  private:
-  Device devices[MAX_DEV];
+  Device* devices[MAX_DEV];
  public:
-  void setDevice(int, Device);
-  Device getDevice(int);
+  void setDevice(int num, Device* dev);
+  Device getDevice(int num);
   SicXeIO();
 };
 

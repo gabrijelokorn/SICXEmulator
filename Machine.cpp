@@ -9,8 +9,6 @@
 #include "Registry.h"
 #include "SicXeIO.h"
 
-#define MAX_DEVICES 256
-
 using namespace std;
 
 

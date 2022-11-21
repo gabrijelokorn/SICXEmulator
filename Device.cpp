@@ -6,17 +6,10 @@
 using namespace std;
 
 uint8_t Device::read() {
-    return 0;
+    return 2;
 }
-void Device::write() {
-
+void Device::write(uint8_t val) {
 }
 bool Device::test() {
     return true;
-}
-
-
-
-Device::Device() { 
-    // cout << "Device works!\n";
 }

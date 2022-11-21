@@ -2,6 +2,7 @@
 #define SICXE_FIILEDEVICE_H
 
 #include <iostream>
+#include <string>
 
 #include "Device.h"
 
@@ -9,13 +10,12 @@ using namespace std;
 
 class FileDevice : public Device {
    private:
-    istream* input;
-    ostream* output;
+    string fileName;
    public:
-    uint8_t fileRead(fstream);
-    void fileWrite(fstream);
-    bool fileTest(fstream);
-    FileDevice(int num);
+    void write(uint8_t val);
+    uint8_t read();
+    bool test();
+    FileDevice(int fileName);
 };
 
 #endif

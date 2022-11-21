@@ -8,24 +8,30 @@
 
 using namespace std;
 
-void SicXeIO::setDevice(int num, Device device) {
+void SicXeIO::setDevice(int num, Device* device) {
 
     this->devices[num] = device;
+    printf("%d\n", (*devices)[0].read());
 }
 
 Device SicXeIO::getDevice (int num) {
-    return devices[num];
+    printf("%d\n", (*devices)[0].read());
+    return (*devices)[num];
 }
 
 SicXeIO::SicXeIO() {
     printf("SicXeIO works\n");
 
-    setDevice(STANDARD_INPUT_DEVICE, InputDevice(cin));
-    setDevice(STANDARD_OUTPUT_DEVICE, OutputDevice(cout));
-    setDevice(STANDARD_ERROR_DEVICE, OutputDevice(cerr));
+    InputDevice* input = new InputDevice(cin);
+    OutputDevice output = OutputDevice(cout);
+    OutputDevice error = OutputDevice(cerr);
 
-    for (int device_index = 3; device_index <= 255; device_index++) {
-        setDevice(device_index, FileDevice(device_index));
-    }
+    setDevice(STANDARD_INPUT_DEVICE, input);
+    // setDevice(STANDARD_OUTPUT_DEVICE, output);
+    // setDevice(STANDARD_ERROR_DEVICE, error);
 
+    // for (int device_index = 3; device_index <= 255; device_index++) {
+    //     setDevice(device_index, FileDevice(device_index));
+    // }
+    printf("%d\n", getDevice(0).read());
 }

@@ -7,11 +7,12 @@
 
 using namespace std;
 
-class OutputDevice : public Device{
- private:
- ostream* output;
- public:
-  OutputDevice(ostream&);
+class OutputDevice : public Device {
+   private:
+    ostream* output;
+
+   public:
+    OutputDevice(ostream& output);
 };
 
 #endif

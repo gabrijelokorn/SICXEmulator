@@ -9,7 +9,6 @@ using namespace std;
 
 class Machine {
    public:
-    void setDevice(int num, Device device);
     Machine();
 };
 
