@@ -10,8 +10,8 @@ class Device {
    private:
    public:
     virtual uint8_t read();
-    void write(uint8_t val);
-    bool test();
+    virtual void write(uint8_t val);
+    virtual bool test();
 };
 
 #endif

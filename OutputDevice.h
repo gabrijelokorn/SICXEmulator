@@ -12,6 +12,7 @@ class OutputDevice : public Device {
     ostream* output;
 
    public:
+    void write(uint8_t val) override;
     OutputDevice(ostream& output);
 };
 

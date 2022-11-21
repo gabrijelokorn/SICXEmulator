@@ -16,7 +16,7 @@ class SicXeIO {
   Device* devices[MAX_DEV];
  public:
   void setDevice(int num, Device* dev);
-  Device getDevice(int num);
+  Device* getDevice(int num);
   SicXeIO();
 };
 

@@ -7,9 +7,11 @@
 using namespace std;
 
 uint8_t InputDevice::read () {
-    return 16;
+    uint8_t character;
+    cin >> character;
+    return character;
 }
 
-InputDevice::InputDevice(istream& input) {
+InputDevice::InputDevice(istream &input) {
     this->input = &input;
 }

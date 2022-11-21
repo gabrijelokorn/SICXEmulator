@@ -4,7 +4,11 @@
 
 using namespace std;
 
-OutputDevice::OutputDevice(ostream& output) {
+void OutputDevice::write(uint8_t val) {
+    cout << val;
+}
+
+OutputDevice::OutputDevice(ostream &output) {
 
     this->output = &output;
 }

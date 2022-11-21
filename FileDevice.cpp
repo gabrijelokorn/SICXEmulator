@@ -9,11 +9,21 @@
 using namespace std;
 
 void FileDevice::write(uint8_t val) {
-    cout << "test";
+    file.open(this->fileName);
+    file.seekp(this->position);
+    file << val;
+    file.close();
+    this->position++;
 }
 
 uint8_t FileDevice::read () {
-    return 0;
+    file.open(this->fileName);
+    file.seekp(this->position);
+    uint8_t character;
+    character = file.get();
+    file.close();
+    this->position++;
+    return character;
 }
 
 bool FileDevice::test () {
@@ -25,5 +35,6 @@ FileDevice::FileDevice(int num) {
     stringstream fileNameHex;
     fileNameHex << std::hex << num;
     this->fileName = fileNameHex.str() + ".dev";
+    this->position = 0;
 }
 
