@@ -105,6 +105,13 @@ void Registry::setReg(int reg, int val) {
         }
         case (9): {
             setSW(val);
+            /*
+            SW values:
+            0x00 - not equal (undefined)
+            0x01 - equal
+            0x02 - less than
+            0x03 - greater than
+            */
             break;
         }
     }

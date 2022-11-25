@@ -26,7 +26,7 @@ class Machine {
 
     bool execF1(uint8_t opcode);
     bool execF2(uint8_t opcode, uint8_t operand);
-    bool execF3F4(uint8_t opcode, uint8_t ni, uint8_t operand);
+    bool execF3F4(uint8_t opcode, uint8_t ni, int offset);
    
     uint8_t fetch();
     void execute();
