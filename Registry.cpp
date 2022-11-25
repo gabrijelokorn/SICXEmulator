@@ -52,12 +52,12 @@ int Registry::getReg(int reg) {
         case (5): {
             return getT();
         }
-        // case (6): {
-        //     return getF();
-        // }
-        // case (7): {
-        //     return 0;
-        // }
+        case (6): {
+            return 0;
+        }
+        case (7): {
+            return 0;
+        }
         case (8): {
             return getPC();
         }
@@ -72,32 +72,64 @@ void Registry::setReg(int reg, int val) {
     switch (reg) {
         case (0): {
             setA(val);
+            break;
         }
         case (1): {
             setX(val);
+            break;
         }
         case (2): {
             setL(val);
+            break;
         }
         case (3): {
             setB(val);
+            break;
         }
         case (4): {
             setS(val);
+            break;
         }
         case (5): {
             setT(val);
+            break;
         }
         // case (6): {
         //     setF(val);
         // }
+        case (7): {
+        }
         case (8): {
             setPC(val);
+            break;
         }
         case (9): {
             setSW(val);
+            break;
         }
     }
 }
 
-Registry::Registry() { cout << "Registry works!\n"; }
+void Registry::incrementPC () {
+    this->setPC(this->getPC() + 1);
+}
+
+void Registry::resetRegisters() {
+    setA(0);
+    setX(0);
+    setL(0);
+    setB(0);
+    setS(0);
+    setT(0);
+    setPC(0);
+    setSW(0);
+}
+
+void Registry::printRegisters() {
+    printf("A: %d\nX: %d\nL: %d\nB: %d\nS: %d\nT: %d\nF: %d\nPC: %d\nSW: %d\n", getA(), getX(), getL(), getB(), getS(), getT(), 0, getPC(), getSW());
+}
+
+
+Registry::Registry() {
+    resetRegisters();
+}

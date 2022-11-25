@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-#include "Machine.h"
-
 using namespace std;
 
 class Registry {
@@ -20,7 +18,6 @@ class Registry {
     int SW;
 
    public:
-    Registry();
 
     int getA();
     void setA(int val);
@@ -51,6 +48,11 @@ class Registry {
 
     int getReg(int registerIndex);
     void setReg(int registerIndex, int val);
+
+    void resetRegisters();
+    void printRegisters();
+    void incrementPC();
+    Registry();
 };
 
 #endif
