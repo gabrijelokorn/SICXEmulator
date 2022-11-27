@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Memory.h"
+#include "Registry.h"
 
 using namespace std;
 
@@ -58,6 +59,7 @@ void Memory::setWord(int addr, int val) {
     }
 
     if (val >= MIN_WORD_VALUE && val <= MAX_WORD_VALUE) {
+        int final_value = addr;
         MEMORY[addr + 2] = val;
         val = val >> 8;
         MEMORY[addr + 1] = val;
@@ -82,4 +84,28 @@ void Memory::print(int from, int to) {
     cout << endl;
 }
 
-Memory::Memory() { cout << "Memory works!\n"; }
+// void Memory::set_base_flag(bool val) {
+//     this->base_flag = val;
+// }
+// void Memory::set_pc_flag(bool val) {
+//     this->pc_flag = val;
+// }
+// void Memory::set_x_flag(bool val) {
+//     this->x_flag = val;
+// }
+// bool Memory::get_base_flag() {
+//     return this->base_flag;
+// }
+// bool Memory::get_pc_flag() {
+//     return this->pc_flag;
+// }
+// bool Memory::get_x_flag() {
+//     return this->x_flag;
+// }
+
+Memory::Memory() { 
+    // set_base_flag(0);
+    // set_pc_flag(0);
+    // set_x_flag(0);
+    cout << "Memory works!\n"; 
+}

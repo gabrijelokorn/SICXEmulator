@@ -25,6 +25,12 @@ void Machine::invalidAddressing() {
     printf("Warning: Addressing is not valid");
 }
 
+uint8_t Machine::fetch() {
+    int fetchInstruction = this->mem.getByte(this->reg.getPC());
+    this->reg.incrementPC();
+    return fetchInstruction;
+}
+
 bool Machine::execF1(uint8_t command_opcode) {
     switch (command_opcode) {
         case FLOAT :
@@ -89,17 +95,27 @@ bool Machine::execF2(uint8_t command_opcode, uint8_t operand) {
     }
     return true;
 }
-bool Machine::execF3F4(uint8_t command_opcode, uint8_t ni, int offset) {
 
-    // bool b_bit = 0x40000000 & offset;
-    // bool p_bit = 0x20000000 & offset;
-    // bool x_bit = 0x80000000 & offset;
+// void Machine::storeByte(int offset, bool x, bool b, bool p) {
 
-    // uint32_t finalAdress = offset;
-    // if (x_bit) finalAdress += reg.getX();
-    // if (b_bit) finalAdress += reg.getB();
-    // if (p_bit) finalAdress += reg.getPC();
+// }
+bool Machine::execF3F4(uint8_t command_opcode, uint8_t ni, uint8_t command_byte_2, uint8_t command_byte_3) {
 
+    uint8_t shift_right_digits = 0;
+    bool x_flag = ((0b10000000 & command_byte_2));
+    bool b_flag = ((0b01000000 & command_byte_2));
+    bool pc_flag = ((0b00100000 & command_byte_2));
+
+    int offset = ((command_byte_2 & 0b00001111) << 8) | command_byte_3;
+    bool e_flag = command_byte_2 & 0b00010000;
+    if (e_flag) {
+        offset = (offset << 8) | fetch();
+    }
+
+    if (x_flag) offset = offset + reg.getX();
+    if (b_flag) offset = offset + reg.getB();
+    if (pc_flag) offset = offset + reg.getPC();
+    
     // int finalValue = finalAdress;
     // if (ni == 1) finalValue = finalValue;
     // else if (ni == 2) finalValue = mem.getWord(mem.getWord(finalValue));
@@ -261,16 +277,9 @@ bool Machine::execF3F4(uint8_t command_opcode, uint8_t ni, int offset) {
     return true;
 }
 
-uint8_t Machine::fetch() {
-    int fetchInstruction = this->mem.getByte(this->reg.getPC());
-    this->reg.incrementPC();
-    return fetchInstruction;
-}
-
-void Machine::execute() {
+void Machine::execute()  {
     
     uint8_t command_byte_1 = fetch();
-    uint8_t ni = command_byte_1 & 0b00000011;
     uint8_t command_opcode = command_byte_1 & ~(3);
 
     if (execF1(command_opcode)) return;
@@ -279,12 +288,8 @@ void Machine::execute() {
     if (execF2(command_opcode, command_byte_2)) return;
 
     uint8_t command_byte_3 = fetch();
-    uint8_t extended_command = command_byte_2 & 0b00010000;
-    int offset = extended_command;
-    if (extended_command) {
-        offset = (offset << 8) | fetch();
-    }
-    if (execF3F4(command_opcode, ni, offset)) return;
+    uint8_t ni = command_byte_1 & 0b00000011;
+    if (execF3F4(command_opcode, ni, command_byte_2, command_byte_3)) return;
     else invalidOpcode(command_opcode);
 }
 

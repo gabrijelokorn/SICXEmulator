@@ -13,6 +13,9 @@
 class Memory {
    private:
     uint8_t MEMORY[MAX_ADDRESS + 1];
+    // bool base_flag;
+    // bool pc_flag;
+    // bool x_flag;
 
    public:
     void outOfMemoryError();
@@ -24,6 +27,13 @@ class Memory {
 
     int getWord(int addr);
     void setWord(int addr, int val);
+
+    // void set_base_flag(bool val);
+    // void set_pc_flag(bool val);
+    // void set_x_flag(bool val) ;
+    // bool get_base_flag();
+    // bool get_pc_flag();
+    // bool get_x_flag();
 
     void print(int from, int to);
     explicit Memory();
