@@ -5,7 +5,7 @@
 #include <cstdint>
 
 #define MAX_ADDRESS 1048575
-#define MAX_WORD_VALUE 8388607
+#define MAX_WORD_VALUE 16777215
 #define MIN_WORD_VALUE -8388608
 #define MAX_BYTE_VALUE 255
 #define MIN_BYTE_VALUE -128
@@ -19,8 +19,8 @@ class Memory {
 
    public:
     void outOfMemoryError();
-    void invalidByteValueMemoryError();
-    void invalidWordValueMemoryError();
+    void invalidByteValueMemoryError(int val);
+    void invalidWordValueMemoryError(int val);
 
     int getByte(int addr);
     void setByte(int addr, int val);

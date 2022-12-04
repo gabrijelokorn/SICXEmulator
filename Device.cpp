@@ -6,7 +6,7 @@
 using namespace std;
 
 uint8_t Device::read() {
-    return 2;
+    return 1;
 }
 void Device::write(uint8_t val) {
 }

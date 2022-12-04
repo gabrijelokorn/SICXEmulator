@@ -13,7 +13,8 @@ class FileDevice : public Device {
    private:
     string fileName;
     string redingFile;
-    fstream file;
+    fstream ofile;
+    ifstream ifile;
     uint32_t position;
     void initializeFile();
     void copyFile();

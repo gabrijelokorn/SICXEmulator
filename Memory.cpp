@@ -9,12 +9,12 @@ void Memory::outOfMemoryError() {
     cout << "Address is not in memory range [0, 1048575]!\n";
 }
 
-void Memory::invalidByteValueMemoryError() {
-    cout << "Value is not int range of type byte [-128, 255]!\n";
+void Memory::invalidByteValueMemoryError(int val) {
+    printf("Value is not int range of type byte [-128, 255]!, your value: %d\n", val);
 }
 
-void Memory::invalidWordValueMemoryError() {
-    cout << "Value is not int range of type word [-8388608, 8388607]!\n";
+void Memory::invalidWordValueMemoryError(int val) {
+    printf("Value is not int range of type word [-8388608, 8388607], your value: %d!\n", val);
 }
 
 int Memory::getByte(int addr) {
@@ -35,7 +35,7 @@ void Memory::setByte(int addr, int val) {
     if (val >= MIN_BYTE_VALUE && val <= MAX_BYTE_VALUE) {
         MEMORY[addr] = val;
     } else {
-        invalidByteValueMemoryError();
+        invalidByteValueMemoryError(val);
     }
 }
 
@@ -67,7 +67,7 @@ void Memory::setWord(int addr, int val) {
         MEMORY[addr] = val;
 
     } else {
-        invalidByteValueMemoryError();
+        invalidWordValueMemoryError(val);
     }
 }
 
@@ -76,10 +76,10 @@ void Memory::print(int from, int to) {
     for (int i = (from / 16) * 16; i < to; i++) {
         if (!(i % 16)) {
             cout << endl;
-            printf("0x%05x ", row);
+            printf("0x%05X ", row * 16);
             row++;
         };
-        printf("%02x ", getByte(i));
+        printf("%02X ", getByte(i));
     }
     cout << endl;
 }

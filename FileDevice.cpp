@@ -9,19 +9,22 @@
 using namespace std;
 
 void FileDevice::write(uint8_t val) {
-    file.open(this->fileName);
-    file.seekp(this->position);
-    file << val;
-    file.close();
+    ofile.open(this->fileName.c_str());
+    ofile.seekp(this->position);
+    // printf("val: %d\n", val);
+    // printf("dn: %s\n", this->fileName.c_str());
+    ofile << val;
+    ofile.close();
     this->position++;
+    cout << this->position << endl;
 }
 
 uint8_t FileDevice::read () {
-    file.open(this->fileName);
-    file.seekp(this->position);
+    ifile.open(this->fileName);
+    ifile.seekg(this->position);
     uint8_t character;
-    character = file.get();
-    file.close();
+    character = ifile.get();
+    ifile.close();
     this->position++;
     return character;
 }
