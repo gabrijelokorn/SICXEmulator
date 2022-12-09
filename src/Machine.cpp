@@ -30,16 +30,6 @@ void Machine::invalidAddressing()
     printf("Warning: Addressing is not valid");
 }
 
-void Machine::invalidByteValueMemoryError(int val)
-{
-    printf("Value is not in range of type byte [-128, 255]!, your value: %d\n", val);
-}
-
-void Machine::invalidWordValueMemoryError(int val)
-{
-    printf("Value is not in range of type word [-2048, 1048575], your value: %d!\n", val);
-}
-
 uint8_t Machine::fetch()
 {
     int fetchInstruction = this->mem.getByte(this->reg.getPC());
@@ -559,5 +549,4 @@ Machine::Machine()
     {
         execute();
     }
-    reg.printRegisters();
 }

@@ -36,9 +36,6 @@ class Machine {
     void invalidOpcode(int opcode);
     void invalidAddressing();
 
-    void invalidByteValueMemoryError(int val);
-    void invalidWordValueMemoryError(int val);
-
     bool execF1(uint8_t opcode);
     bool execF2(uint8_t opcode, uint8_t operand);
     bool execF3F4(uint8_t opcode, uint8_t ni, uint8_t command_byte_2, uint8_t command_byte_3);
