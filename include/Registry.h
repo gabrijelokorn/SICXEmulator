@@ -37,8 +37,8 @@ class Registry {
     int getT();
     void setT(int val);
 
-    int getF();
-    void setF(int val);
+    // int getF();
+    // void setF(int val);
 
     int getPC();
     void setPC(int val);

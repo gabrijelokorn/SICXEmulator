@@ -80,7 +80,7 @@ using namespace std;
 #define HIO       0xF4
 #define TIO       0xF8
 
-// ***** SIC/XE Format 2 *****
+// ********** SIC/XE Format 2 **********
 #define ADDR      0x90
 #define SUBR      0x94
 #define MULR      0x98

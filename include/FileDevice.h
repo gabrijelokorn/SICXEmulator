@@ -12,12 +12,9 @@ using namespace std;
 class FileDevice : public Device {
    private:
     string fileName;
-    string redingFile;
     fstream ofile;
     ifstream ifile;
     uint32_t position;
-    void initializeFile();
-    void copyFile();
 
    public:
     void write(uint8_t val) override;
