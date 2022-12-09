@@ -5,7 +5,7 @@
 #include <sstream>
 #include <vector>
 #include <chrono>
-#include <time.h>
+#include <ctime>
 
 #include "Machine.h"
 #include "Device.h"
@@ -16,6 +16,7 @@
 #include "Opcode.h"
 
 using namespace std;
+using namespace std::chrono;
 
 void Machine::notImplemented(string mnemonic)
 {
@@ -543,41 +544,51 @@ void Machine::loadProgram(string fileName)
     this->file.close();
 }
 
-void Machine::step() {
+void Machine::step()
+{
     execute();
     this->instruction_counter++;
 }
-void Machine::start() {
+void Machine::start()
+{
     this->run = true;
-    while (1)
+    while (this->run)
     {
         int finalPc = reg.getPC();
-        auto command_timer_begin = chrono::high_resolution_clock::now();
+
+        clock_t start, end;
+        start = clock();
+
         step();
-        auto command_timer_end = chrono::high_resolution_clock::now();
-        auto elapsed = command_timer_end - command_timer_begin;
-        while (elapsed.count() * 1e-9 < 1 / this->speed);
-        if (reg.getPC() == finalPc || !this->run) break;
+
+        while (double(clock() - start) / double(CLOCKS_PER_SEC) < this->speed) {
+        }
+        
+        if (reg.getPC() == finalPc) break;
     }
 }
-void Machine::stop() {
+void Machine::stop()
+{
     this->run = false;
 }
 
-void Machine::setSpeed(int val){
-    this->speed = val;
+void Machine::setSpeed(int hertz)
+{
+    this->hertz = hertz;
+    this->speed = (double) 1 / (double) hertz;
 }
 
-int Machine::getSpeed() {
-    return this->speed;
+int Machine::getSpeed()
+{
+    return this->hertz;
 }
-
 
 Machine::Machine()
 {
-    this->speed = DEFAULT_CLOCK_FREQ;
+    this->hertz = DEFAULT_CLOCK_FREQ;
+    this->speed = (double) 1 / (double) DEFAULT_CLOCK_FREQ;
     this->run = true;
     this->instruction_counter = 0;
-    // loadProgram("rec.obj");
-
+    loadProgram("rec.obj");
+    start();
 }

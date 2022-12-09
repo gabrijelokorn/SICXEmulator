@@ -32,7 +32,8 @@ class Machine {
     uint32_t programLength;
 
     bool run;
-    int speed;
+    double speed;
+    int hertz;
 
     uint32_t instruction_counter;
 
