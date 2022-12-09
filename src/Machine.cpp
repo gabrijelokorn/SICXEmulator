@@ -4,8 +4,6 @@
 #include <cstdint>
 #include <sstream>
 #include <vector>
-#include <chrono>
-#include <ctime>
 
 #include "Machine.h"
 #include "Device.h"
@@ -16,7 +14,6 @@
 #include "Opcode.h"
 
 using namespace std;
-using namespace std::chrono;
 
 void Machine::notImplemented(string mnemonic)
 {
@@ -536,8 +533,9 @@ void Machine::loadProgram(string fileName)
     char line[100];
     streamsize lineLength = 100;
 
-    while (this->file.getline(line, lineLength))
+    while (this->file.getline(line, lineLength)) {
         lineDecoder(line);
+    }
 
     reg.setPC(programStart);
 
@@ -561,8 +559,7 @@ void Machine::start()
 
         step();
 
-        while (double(clock() - start) / double(CLOCKS_PER_SEC) < this->speed) {
-        }
+        while (double(clock() - start) / double(CLOCKS_PER_SEC) < this->speed) 
         
         if (reg.getPC() == finalPc) break;
     }
@@ -589,6 +586,7 @@ Machine::Machine()
     this->speed = (double) 1 / (double) DEFAULT_CLOCK_FREQ;
     this->run = true;
     this->instruction_counter = 0;
-    loadProgram("rec.obj");
+    loadProgram("echo.obj");
+    setSpeed(10000);
     start();
 }
