@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <fstream>
+#include <cstring>
 
 #include "FileDevice.h"
 
@@ -10,23 +11,21 @@ using namespace std;
 
 void FileDevice::write(uint8_t val) {
     ofile.open(this->fileName.c_str());
+    if (!ofile) ofile.open(this->fileName.c_str(), fstream::app);
     ofile.seekp(this->position);
-    // printf("val: %d\n", val);
-    // printf("dn: %s\n", this->fileName.c_str());
     ofile << val;
     ofile.close();
     this->position++;
-    cout << this->position << endl;
 }
 
-uint8_t FileDevice::read () {
+int FileDevice::read () {
     ifile.open(this->fileName);
+    if (!ifile) ifile.open(this->fileName.c_str(), ifstream::app);
     ifile.seekg(this->position);
-    uint8_t character;
-    character = ifile.get();
+    int character = ifile.get();
     ifile.close();
     this->position++;
-    return character;
+    return character != -1 ? character : 0;
 }
 
 bool FileDevice::test () {
@@ -36,8 +35,16 @@ bool FileDevice::test () {
 FileDevice::FileDevice(int num) {
 
     stringstream fileNameHex;
+    if (num < 16) {
+        this->fileName = "0";
+    }
     fileNameHex << std::hex << num;
-    this->fileName = fileNameHex.str() + ".dev";
+    this->fileName = this->fileName + fileNameHex.str();
+    // this->fileName << uppercase;
+    for (int i = 0; i < fileName.length(); i++) {
+        this->fileName[i] = toupper(this->fileName.c_str()[i]);
+    }
+    this->fileName += ".dev";
     this->position = 0;
 }
 

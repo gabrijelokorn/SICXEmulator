@@ -5,7 +5,7 @@
 #include "Device.h"
 using namespace std;
 
-uint8_t Device::read() {
+int Device::read() {
     return 1;
 }
 void Device::write(uint8_t val) {

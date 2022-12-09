@@ -6,7 +6,7 @@
 
 using namespace std;
 
-uint8_t InputDevice::read () {
+int InputDevice::read () {
     uint8_t character;
     cin >> character;
     return character;

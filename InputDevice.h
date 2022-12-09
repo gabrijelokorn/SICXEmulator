@@ -12,7 +12,7 @@ class InputDevice : public Device {
    private:
     istream* input;
    public:
-    uint8_t read() override;
+    int read() override;
     InputDevice(istream& input);
 };
 

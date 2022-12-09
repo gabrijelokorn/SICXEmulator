@@ -133,7 +133,7 @@ void Registry::resetRegisters() {
 }
 
 void Registry::printRegisters() {
-    printf("A: %d\nX: %d\nL: %d\nB: %d\nS: %d\nT: %d\nF: %d\nPC: %d\nSW: %d\n", getA(), getX(), getL(), getB(), getS(), getT(), 0, getPC(), getSW());
+    printf("A: %02x\nX: %02x\nL: %02x\nB: %02x\nS: %02x\nT: %02x\nF: %02x\nPC: %02x\nSW: %02x\n", getA(), getX(), getL(), getB(), getS(), getT(), 0, getPC(), getSW());
 }
 
 

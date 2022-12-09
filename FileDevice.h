@@ -21,7 +21,7 @@ class FileDevice : public Device {
 
    public:
     void write(uint8_t val) override;
-    uint8_t read() override;
+    int read() override;
     bool test() override;
     FileDevice(int fileName);
 };

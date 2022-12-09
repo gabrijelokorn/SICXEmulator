@@ -9,7 +9,7 @@ using namespace std;
 class Device {
    private:
    public:
-    virtual uint8_t read();
+    virtual int read();
     virtual void write(uint8_t val);
     virtual bool test();
 };

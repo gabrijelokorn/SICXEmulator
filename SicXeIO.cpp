@@ -17,8 +17,6 @@ Device* SicXeIO::getDevice (int num) {
 }
 
 SicXeIO::SicXeIO() {
-    printf("SicXeIO works\n");
-
     setDevice(STANDARD_INPUT_DEVICE, new InputDevice(cin));
     setDevice(STANDARD_OUTPUT_DEVICE, new OutputDevice(cout));
     setDevice(STANDARD_ERROR_DEVICE, new OutputDevice(cerr));
