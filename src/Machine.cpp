@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <sstream>
 #include <vector>
+#include <chrono>
+#include <time.h>
 
 #include "Machine.h"
 #include "Device.h"
@@ -202,11 +204,11 @@ bool Machine::execF3F4(uint8_t command_opcode, uint8_t ni, uint8_t command_byte_
     {
         if (e_flag)
         {
-            address = -1048576 + address;
+            address = FORMAT4_NEGATIVE_OFFSET + address;
         }
         else
         {
-            address = -4096 + address;
+            address = FORMAT3_NEGATIVE_OFFSET + address;
         }
     }
     if (x_flag)
@@ -541,12 +543,41 @@ void Machine::loadProgram(string fileName)
     this->file.close();
 }
 
+void Machine::step() {
+    execute();
+    this->instruction_counter++;
+}
+void Machine::start() {
+    this->run = true;
+    while (1)
+    {
+        int finalPc = reg.getPC();
+        auto command_timer_begin = chrono::high_resolution_clock::now();
+        step();
+        auto command_timer_end = chrono::high_resolution_clock::now();
+        auto elapsed = command_timer_end - command_timer_begin;
+        while (elapsed.count() * 1e-9 < 1 / this->speed);
+        if (reg.getPC() == finalPc || !this->run) break;
+    }
+}
+void Machine::stop() {
+    this->run = false;
+}
+
+void Machine::setSpeed(int val){
+    this->speed = val;
+}
+
+int Machine::getSpeed() {
+    return this->speed;
+}
+
+
 Machine::Machine()
 {
-    loadProgram("rec.obj");
+    this->speed = DEFAULT_CLOCK_FREQ;
+    this->run = true;
+    this->instruction_counter = 0;
+    // loadProgram("rec.obj");
 
-    for (int i = 0; i < 10000; i++)
-    {
-        execute();
-    }
 }

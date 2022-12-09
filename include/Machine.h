@@ -12,10 +12,10 @@
 #include "Registry.h"
 #include "SicXeIO.h"
 
-#define MAX_FORMAT3_OFFSET 4095
-#define MIN_FORMAT3_OFFSET -2048
-#define MAX_FORMAT4_OFFSET 1048575
-#define MIN_FORMAT4_OFFSET 0
+#define FORMAT3_NEGATIVE_OFFSET -4096
+#define FORMAT4_NEGATIVE_OFFSET -1048576
+
+#define DEFAULT_CLOCK_FREQ 100
 
 using namespace std;
 
@@ -31,6 +31,10 @@ class Machine {
     uint32_t programStart;
     uint32_t programLength;
 
+    bool run;
+    int speed;
+
+    uint32_t instruction_counter;
 
     void notImplemented(string mnemonic);
     void invalidOpcode(int opcode);
@@ -50,7 +54,15 @@ class Machine {
 
     void lineDecoder(string line);
 
+
    public:
+    void step();
+    void start();
+    void stop();
+
+    void setSpeed(int val);    
+    int getSpeed();
+
     void loadProgram(string fileName);
     Machine();
 };
