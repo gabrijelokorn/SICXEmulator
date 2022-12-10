@@ -55,7 +55,8 @@ int Machine::get_previous_SBP() {
     return mem.getWord(reg.getSBP() + 3);
 }
 
-void Machine::resetSBP() {
+void Machine::resetSP() {
+    reg.setSMP(reg.getSBP());
     reg.setSBP(get_previous_SBP());
 }
 
@@ -77,14 +78,14 @@ void Machine::POPL() {
     reg.setS(mem.getWord(reg.getSBP() - 4 * 3));
     reg.setT(mem.getWord(reg.getSBP() - 5 * 3));
     reg.setSW(mem.getWord(reg.getSBP() - 6 * 3));
-    resetSBP();
+    resetSP();
 }
 void Machine::POPC() {
     reg.setPC(mem.getWord(reg.getSBP() + 6));
 }
 void Machine::POPA(int reg1, int reg2) {
-    reg.setReg(reg1, mem.getWord(reg.getSBP() - 9));
-    reg.setReg(reg2, mem.getWord(reg.getSBP() - 12));
+    reg.setReg(reg1, mem.getWord(reg.getSBP() + 9));
+    reg.setReg(reg2, mem.getWord(reg.getSBP() + 12));
 }
 
 void Machine::push_locals() {
@@ -552,7 +553,6 @@ bool Machine::execF3F4(uint8_t command_opcode, uint8_t ni, uint8_t command_byte_
         notImplemented("SSK");
         break;
     case CALL:
-        PUSHPC();
         PUSHL();
         if (ni == 1 || ni == 3)
         {
@@ -567,6 +567,10 @@ bool Machine::execF3F4(uint8_t command_opcode, uint8_t ni, uint8_t command_byte_
     case RTN:
         POPC();
         POPL();
+        pop_stack();
+        pop_stack();
+        pop_stack();
+        pop_stack();
         break;
 
     default:

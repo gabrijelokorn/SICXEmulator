@@ -59,7 +59,7 @@ class Machine {
     void incrementSMP();
     void decreaseSMP();
     void upadate_SBP();
-    void resetSBP();
+    void resetSP();
     int get_previous_SBP();
 
     void push_stack(int val);

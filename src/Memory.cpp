@@ -49,7 +49,7 @@ void Memory::setByte(int addr, int val) {
 
 void Memory::print(int from, int to) {
     int row = from / 16;
-    for (int i = (from / 16) * 16; i <= to; i++) {
+    for (int i = (from / 16) * 16; i <= to && i < MAX_ADDRESS + 1; i++) {
         if (!(i % 16)) {
             cout << endl;
             printf("0x%05X ", row * 16);
