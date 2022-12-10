@@ -16,6 +16,8 @@ class Registry {
     double F;
     int PC;
     int SW;
+    int SMP; // stack main pointer
+    int SBP; // stack base pointer
 
    public:
 
@@ -45,6 +47,14 @@ class Registry {
 
     int getSW();
     void setSW(int val);
+
+    int getSMP();
+    void setSMP(int val);
+
+    int getSBP();
+    void setSBP(int val);
+
+    
 
     int getReg(int registerIndex);
     void setReg(int registerIndex, int val);

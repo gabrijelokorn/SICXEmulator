@@ -27,7 +27,92 @@ void Machine::invalidOpcode(int opcode)
 
 void Machine::invalidAddressing()
 {
-    printf("Warning: Addressing is not valid");
+    printf("Warning: Addressing is not valid\n");
+}
+
+void Machine::stackOverflowWarning() {
+    printf("STACK OVERFLOW!\n");
+}
+
+void Machine::incrementSMP()
+{
+    if (reg.getSMP() < MIN_STACK_ADDRESS) {
+        stackOverflowWarning();
+    }
+    reg.setSMP(reg.getSMP() - 3);
+}
+
+void Machine::decreaseSMP()
+{
+    reg.setSMP(reg.getSMP() + 3);
+}
+
+void Machine::upadate_SBP() {
+    reg.setSBP(reg.getSMP());
+}
+
+int Machine::get_previous_SBP() {
+    return mem.getWord(reg.getSBP() + 3);
+}
+
+void Machine::resetSBP() {
+    reg.setSBP(get_previous_SBP());
+}
+
+void Machine::push_stack(int val) {
+    mem.setWord(reg.getSMP(), val);
+    incrementSMP();
+}
+
+int Machine::pop_stack() {
+    decreaseSMP();
+    return mem.getWord(reg.getSMP());
+}
+
+void Machine::POPL() {
+    reg.setA(mem.getWord(reg.getSBP() - 0 * 3));
+    reg.setX(mem.getWord(reg.getSBP() - 1 * 3));
+    reg.setL(mem.getWord(reg.getSBP() - 2 * 3));
+    reg.setB(mem.getWord(reg.getSBP() - 3 * 3));
+    reg.setS(mem.getWord(reg.getSBP() - 4 * 3));
+    reg.setT(mem.getWord(reg.getSBP() - 5 * 3));
+    reg.setSW(mem.getWord(reg.getSBP() - 6 * 3));
+    resetSBP();
+}
+void Machine::POPC() {
+    reg.setPC(mem.getWord(reg.getSBP() + 6));
+}
+void Machine::POPA(int reg1, int reg2) {
+    reg.setReg(reg1, mem.getWord(reg.getSBP() - 9));
+    reg.setReg(reg2, mem.getWord(reg.getSBP() - 12));
+}
+
+void Machine::push_locals() {
+    push_stack(reg.getA());
+    push_stack(reg.getX());
+    push_stack(reg.getL());
+    push_stack(reg.getB());
+    push_stack(reg.getS());
+    push_stack(reg.getT());
+    push_stack(reg.getSW());
+}
+
+void Machine::PUSHSMP() {
+    push_stack(reg.getSBP());
+    upadate_SBP();
+}
+
+void Machine::PUSHPC() {
+    push_stack(reg.getPC());
+}
+void Machine::PUSHL() {
+    PUSHPC();
+    PUSHSMP();
+    push_locals();
+}
+void Machine::PUSHA(int reg1, int reg2) {
+    push_stack(reg.getReg(reg2));
+    push_stack(reg.getReg(reg1));
 }
 
 uint8_t Machine::fetch()
@@ -114,6 +199,13 @@ bool Machine::execF2(uint8_t command_opcode, uint8_t operand)
         reg.setReg(operand_one, 0);
         break;
     case TIXR:
+        notImplemented("TIXR");
+        break;
+    case PUSHR:
+        PUSHA(operand_one, operand_two);
+        break;
+    case POPR:
+        POPA(operand_one, operand_two);
         break;
     default:
         return false;
@@ -459,6 +551,23 @@ bool Machine::execF3F4(uint8_t command_opcode, uint8_t ni, uint8_t command_byte_
     case SSK:
         notImplemented("SSK");
         break;
+    case CALL:
+        PUSHPC();
+        PUSHL();
+        if (ni == 1 || ni == 3)
+        {
+            reg.setPC(address);
+        }
+        else if (ni == 2)
+        {
+            reg.setPC(takeWord(ni == 1, ni == 2, ni == 1, offset, address));
+        }
+        break;
+
+    case RTN:
+        POPC();
+        POPL();
+        break;
 
     default:
         return false;
@@ -586,7 +695,9 @@ Machine::Machine()
     this->speed = (double) 1 / (double) DEFAULT_CLOCK_FREQ;
     this->run = true;
     this->instruction_counter = 0;
-    loadProgram("echo.obj");
-    setSpeed(10000);
-    start();
+
+    // loadProgram("test.obj");
+    // setSpeed(10000);
+    // start();
+
 }

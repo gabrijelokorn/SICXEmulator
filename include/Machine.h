@@ -40,6 +40,7 @@ class Machine {
     void notImplemented(string mnemonic);
     void invalidOpcode(int opcode);
     void invalidAddressing();
+    void stackOverflowWarning();
 
     bool execF1(uint8_t opcode);
     bool execF2(uint8_t opcode, uint8_t operand);
@@ -55,6 +56,24 @@ class Machine {
 
     void lineDecoder(string line);
 
+    void incrementSMP();
+    void decreaseSMP();
+    void upadate_SBP();
+    void resetSBP();
+    int get_previous_SBP();
+
+    void push_stack(int val);
+    int pop_stack();
+
+    void PUSHA(int reg1, int reg2);
+    void PUSHL();
+    void PUSHPC();
+    void PUSHSMP();
+    void push_locals();
+
+    void POPA(int reg1, int reg2);
+    void POPC();
+    void POPL();
 
    public:
     void step();

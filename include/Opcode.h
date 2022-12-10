@@ -35,8 +35,10 @@ using namespace std;
 #define OR        0x44
 
 // jump to subroutine
+#define CALL      0xE4
 #define JSUB      0x48
 #define RSUB      0x4C
+#define RTN       0xFC
 
 // load and store int
 #define LDCH      0x50
@@ -81,6 +83,7 @@ using namespace std;
 #define TIO       0xF8
 
 // ********** SIC/XE Format 2 **********
+#define PUSHR     0x8C
 #define ADDR      0x90
 #define SUBR      0x94
 #define MULR      0x98
@@ -92,6 +95,7 @@ using namespace std;
 #define SVC       0xB0
 #define CLEAR     0xB4
 #define TIXR      0xB8
+#define POPR      0xBC
 
 // ************ Directives ******************
 #define START     0

@@ -6,6 +6,9 @@
 
 #define MAX_ADDRESS 1048575
 
+#define MIN_STACK_ADDRESS 1032191
+#define STACK_SIZE 16384
+
 class Memory {
    private:
     uint8_t MEMORY[MAX_ADDRESS + 1];
@@ -18,7 +21,7 @@ class Memory {
 
     int getWord(int addr);
     void setWord(int addr, int val);
-
+   
     void print(int from, int to);
     explicit Memory();
 };
