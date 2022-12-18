@@ -2,6 +2,7 @@
 #include <string>
 #include <gtkmm.h>
 
+#include "EmulatorApp.h"
 // #include "Machine.h"
 
 using std::cin;
@@ -10,45 +11,41 @@ using std::endl;
 
 using namespace std;
 
-void on_button_start_clicked (Gtk::Button test) {
-
-}
-
-void on_button_step_clicked (Gtk::Button test) {
-
-}
-
-void on_app_activate()
-{
-  // Load the GtkBuilder file and instantiate its widgets:
-  auto refBuilder = Gtk::Builder::create();
-  try
-  {
-    refBuilder->add_from_file("gui.glade");
-  }
-  catch(const Glib::FileError& ex)
-  {
-    std::cerr << "FileError: " << ex.what() << std::endl;
-    return;
-  }
-  catch(const Glib::MarkupError& ex)
-  {
-    std::cerr << "MarkupError: " << ex.what() << std::endl;
-    return;
-  }
-  catch(const Gtk::BuilderError& ex)
-  {
-    std::cerr << "BuilderError: " << ex.what() << std::endl;
-    return;
-  }
-}
+class HelloWindow : public Gtk::ApplicationWindow {
+    Gtk::Box *cont;
+    Glib::RefPtr<Gtk::Label> display_label;
+    Glib::RefPtr<Gtk::Button> display_btn;
+    Glib::RefPtr<Gtk::Builder> ui;
+public:
+    HelloWindow()
+    : ui{Gtk::Builder::create_from_file("gui.glade")} {
+        if(ui) {
+            ui->get_widget<Gtk::Box>("cont", cont);
+            display_label = Glib::RefPtr<Gtk::Label>::cast_dynamic(
+                ui->get_object("display_label")
+            );
+            display_btn = Glib::RefPtr<Gtk::Button>::cast_dynamic(
+                ui->get_object("display_button")
+            );
+            if(cont && display_label && display_btn) {
+                display_btn->signal_clicked().connect(
+                [this]() {
+                    display_label->set_text("Hello World");
+                });
+                add(*cont);
+            }
+        }
+        set_title("Simple Gtk::Builder demo");
+        set_default_size(400, 400);
+        show_all();
+    }
+};
 
 int main(int argc, char** argv) {
 
   auto app = Gtk::Application::create("org.gtkmm.examples.base");
 
-  app->signal_activate().connect([] () { on_app_activate(); });
+  EmulatorApp emulator_app;
 
-  return app->run(argc, argv);
-  // return app->make_window_and_run<MainWin>(argc, argv);
+  return app->run(emulator_app);
 }
