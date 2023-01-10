@@ -7,7 +7,7 @@
 Add headers to **include** directory and **source** (cpp) files into src directory.
 ## Compilation
 ```bash
-g++ -o emulator src/*.cpp -I include/
+g++ `pkg-config gtk+-3.0 --cflags` ./src/*.cpp -I ./include/ -o main `pkg-config gtk+-3.0 --libs`
 ```
 ## Execution
 ```bash

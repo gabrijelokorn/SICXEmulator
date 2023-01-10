@@ -2,6 +2,9 @@
 #include <string>
 #include <cstring>
 #include <gtk/gtk.h>
+#include <string>
+
+#include "Machine.h"
 
 using std::cin;
 using std::cout;
@@ -80,5 +83,6 @@ int main(int argc, char **argv)
 
     gtk_main();
 
+    Machine SICXEMachine;
     return 0;
 }
